@@ -10,16 +10,16 @@ import { IndianRupee, Youtube } from 'lucide-react'
 
 
 interface Inputs {
-  annualIncomePerYear: string;
+  annualIncome: string;
   onRoadPrice: string;
   loanAmount: string;
   loanTenure: string;
-  interestRatePerYear: string;
-  registrationFeesOfTheVehicle: string;
-  estimatedFuelCostPerYear: string;
-  insurancePremiumPerYear: string;
+  interestRate: string;
+  registrationFees: string;
+  fuelCost: string;
+  insurancePremium: string;
   lifeSpan: string;
-  estimatedMaintenanceCostPerYear: string;
+  maintenanceCost: string;
 }
 
 interface Results {
@@ -39,16 +39,16 @@ interface Results {
 
 const Page: React.FC = () => {
   const [inputs, setInputs] = useState<Inputs>({
-    annualIncomePerYear: '',
+    annualIncome: '',
     onRoadPrice: '',
     loanAmount: '',
     loanTenure: '',
-    interestRatePerYear: '',
-    registrationFeesOfTheVehicle: '',
-    estimatedFuelCostPerYear: '',
-    insurancePremiumPerYear: '',
+    interestRate: '',
+    registrationFees: '',
+    fuelCost: '',
+    insurancePremium: '',
     lifeSpan: '',
-    estimatedMaintenanceCostPerYear: '',
+    maintenanceCost: '',
   })
 
   const [results, setResults] = useState<Results | null>(null)
@@ -62,16 +62,16 @@ const Page: React.FC = () => {
 
   const clearAllFields = () => {
     setInputs({
-      annualIncomePerYear: '',
+      annualIncome: '',
       onRoadPrice: '',
       loanAmount: '',
       loanTenure: '',
-      interestRatePerYear: '',
-      registrationFeesOfTheVehicle: '',
-      estimatedFuelCostPerYear: '',
-      insurancePremiumPerYear: '',
+      interestRate: '',
+      registrationFees: '',
+      fuelCost: '',
+      insurancePremium: '',
       lifeSpan: '',
-      estimatedMaintenanceCostPerYear: '',
+      maintenanceCost: '',
     })
     setResults(null)
     setErrors([])
@@ -80,7 +80,7 @@ const Page: React.FC = () => {
   const validateInputs = (): boolean => {
     const newErrors: string[] = []
     Object.entries(inputs).forEach(([key, value]) => {
-      if (!value.trim() || value<0) {
+      if (!value.trim()) {
         newErrors.push(`${formatLabel(key)} is required`)
       }
     })
@@ -97,29 +97,29 @@ const Page: React.FC = () => {
     setIsLoading(true)
     setTimeout(() => {
       const {
-        annualIncomePerYear,
+        annualIncome,
         onRoadPrice,
         loanAmount,
         loanTenure,
-        interestRatePerYear,
-        registrationFeesOfTheVehicle,
-        estimatedFuelCostPerYear,
-        insurancePremiumPerYear,
+        interestRate,
+        registrationFees,
+        fuelCost,
+        insurancePremium,
         lifeSpan,
-        estimatedMaintenanceCostPerYear,
+        maintenanceCost,
       } = inputs
 
       // Convert inputs to numeric values
-      const income = parseFloat(annualIncomePerYear)
+      const income = parseFloat(annualIncome)
       const price = parseFloat(onRoadPrice)
       const principle = parseFloat(loanAmount)
       const tenure = parseFloat(loanTenure)
-      const rate = parseFloat(interestRatePerYear) / 100
-      const registration = parseFloat(registrationFeesOfTheVehicle)
-      const fuel = parseFloat(estimatedFuelCostPerYear)
-      const insurance = parseFloat(insurancePremiumPerYear)
+      const rate = parseFloat(interestRate) / 100
+      const registration = parseFloat(registrationFees)
+      const fuel = parseFloat(fuelCost)
+      const insurance = parseFloat(insurancePremium)
       const carLifeSpan = parseInt(lifeSpan, 10)
-      const maintenance = parseFloat(estimatedMaintenanceCostPerYear)
+      const maintenance = parseFloat(maintenanceCost)
 
       // Step 1: Calculate Personal Income Tax (New Regime) 
       let tax = 0
@@ -192,7 +192,7 @@ const Page: React.FC = () => {
 
   const formatLabel = (key: string) => {
     const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())
-    if (['interestRatePerYear'].includes(key)) {
+    if (['interestRate'].includes(key)) {
       return `${label} (in %)`
     } else if (['loanTenure', 'lifeSpan'].includes(key)) {
       return `${label} (in years)`
@@ -231,7 +231,7 @@ const Page: React.FC = () => {
                       errors.some(error => error.includes(formatLabel(key))) ? 'border-red-500' : ''
                     }`}
                   />
-                  {!['interestRatePerYear', 'loanTenure', 'lifeSpan'].includes(key) && (
+                  {!['interestRate', 'loanTenure', 'lifeSpan'].includes(key) && (
                     <IndianRupee className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                   )}
                 </div>
@@ -271,7 +271,7 @@ const Page: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {Object.entries(results).map(([key, value]) => (
                   <div key={key} className="flex justify-between">
-                    <span className="font-semibold">{formatPlaceholder(key)}:</span>
+                    <span className="font-semibold">{formatLabel(key)}:</span>
                     <span className={key === 'isAffordable' ? (value ? 'text-green-500' : 'text-red-500') : ''}>
                       {key === 'isAffordable' ? (value ? 'Yes' : 'No') : `₹${value.toLocaleString('en-IN')}`}
                     </span>
