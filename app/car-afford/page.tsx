@@ -14,12 +14,12 @@ interface Inputs {
   onRoadPrice: string;
   loanAmount: string;
   loanTenure: string;
-  interestRate: string;
-  registrationFees: string;
-  fuelCost: string;
-  insurancePremium: string;
+  interestRatePerYear: string;
+  registrationFeesOfTheCar: string;
+  fuelCostPerYear: string;
+  insurancePremiumPerYear: string;
   lifeSpan: string;
-  maintenanceCost: string;
+  maintenanceCostPerYear: string;
 }
 
 interface Results {
@@ -43,12 +43,12 @@ const Page: React.FC = () => {
     onRoadPrice: '',
     loanAmount: '',
     loanTenure: '',
-    interestRate: '',
-    registrationFees: '',
-    fuelCost: '',
-    insurancePremium: '',
+    interestRatePerYear: '',
+    registrationFeesOfTheCar: '',
+    fuelCostPerYear: '',
+    insurancePremiumPerYear: '',
     lifeSpan: '',
-    maintenanceCost: '',
+    maintenanceCostPerYear: '',
   })
 
   const [results, setResults] = useState<Results | null>(null)
@@ -66,12 +66,12 @@ const Page: React.FC = () => {
       onRoadPrice: '',
       loanAmount: '',
       loanTenure: '',
-      interestRate: '',
-      registrationFees: '',
-      fuelCost: '',
-      insurancePremium: '',
+      interestRatePerYear: '',
+      registrationFeesOfTheCar: '',
+      fuelCostPerYear: '',
+      insurancePremiumPerYear: '',
       lifeSpan: '',
-      maintenanceCost: '',
+      maintenanceCostPerYear: '',
     })
     setResults(null)
     setErrors([])
@@ -101,12 +101,12 @@ const Page: React.FC = () => {
         onRoadPrice,
         loanAmount,
         loanTenure,
-        interestRate,
-        registrationFees,
-        fuelCost,
-        insurancePremium,
+        interestRatePerYear,
+        registrationFeesOfTheCar,
+        fuelCostPerYear,
+        insurancePremiumPerYear,
         lifeSpan,
-        maintenanceCost,
+        maintenanceCostPerYear,
       } = inputs
 
       // Convert inputs to numeric values
@@ -114,12 +114,12 @@ const Page: React.FC = () => {
       const price = parseFloat(onRoadPrice)
       const principle = parseFloat(loanAmount)
       const tenure = parseFloat(loanTenure)
-      const rate = parseFloat(interestRate) / 100
-      const registration = parseFloat(registrationFees)
-      const fuel = parseFloat(fuelCost)
-      const insurance = parseFloat(insurancePremium)
+      const rate = parseFloat(interestRatePerYear) / 100
+      const registration = parseFloat(registrationFeesOfTheCar)
+      const fuel = parseFloat(fuelCostPerYear)
+      const insurance = parseFloat(insurancePremiumPerYear)
       const carLifeSpan = parseInt(lifeSpan, 10)
-      const maintenance = parseFloat(maintenanceCost)
+      const maintenance = parseFloat(maintenanceCostPerYear)
 
       // Step 1: Calculate Personal Income Tax (New Regime) 
       let tax = 0
@@ -192,7 +192,7 @@ const Page: React.FC = () => {
 
   const formatLabel = (key: string) => {
     const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())
-    if (['interestRate'].includes(key)) {
+    if (['interestRatePerYear'].includes(key)) {
       return `${label} (in %)`
     } else if (['loanTenure', 'lifeSpan'].includes(key)) {
       return `${label} (in years)`
@@ -231,7 +231,7 @@ const Page: React.FC = () => {
                       errors.some(error => error.includes(formatLabel(key))) ? 'border-red-500' : ''
                     }`}
                   />
-                  {!['interestRate', 'loanTenure', 'lifeSpan'].includes(key) && (
+                  {!['interestRatePerYear', 'loanTenure', 'lifeSpan'].includes(key) && (
                     <IndianRupee className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                   )}
                 </div>
