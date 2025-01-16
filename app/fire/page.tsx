@@ -73,7 +73,7 @@ const Page: React.FC = () => {
     <div className="min-h-screen bg-blue-900 p-8">
       <Card className="max-w-4xl mx-auto bg-white shadow-xl">
         <CardHeader>
-          <CardTitle className="text-3xl font-bold text-center text-gray-800">Let's Start with FIRE 🔥</CardTitle>
+          <CardTitle className="text-3xl font-bold text-center text-gray-800">Calculate Fire</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">

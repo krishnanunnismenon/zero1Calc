@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { IndianRupee, Youtube } from 'lucide-react'
-import { Alert, AlertDescription } from '@/components/ui/alert'
+
 
 interface Inputs {
   annualIncome: string;
