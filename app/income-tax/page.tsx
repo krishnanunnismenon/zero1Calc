@@ -15,7 +15,7 @@ interface TaxDetails {
   totalTax: string
 }
 
-const page = () => {
+const Page = () => {
   const [ageCategory, setAgeCategory] = useState<string>('')
   const [is115BAC, setIs115BAC] = useState<string>('')
   const [income, setIncome] = useState<string>('')
@@ -164,4 +164,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
