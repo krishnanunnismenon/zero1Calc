@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Youtube } from 'lucide-react'
 
 interface TableDataItem {
   age: number;
@@ -24,6 +25,7 @@ const Page: React.FC = () => {
   const [tableData, setTableData] = useState<TableDataItem[]>([])
   const [showTable, setShowTable] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [showVideo, setShowVideo] = useState<boolean>(false)
 
   const generateTableData = () => {
     if (
@@ -71,7 +73,7 @@ const Page: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-blue-900 p-8">
-      <Card className="max-w-4xl mx-auto bg-white shadow-xl">
+      <Card className="max-w-4xl mx-auto mb-8 bg-white shadow-xl">
         <CardHeader>
           <CardTitle className="text-3xl font-bold text-center text-gray-800">Calculate Fire</CardTitle>
         </CardHeader>
@@ -161,6 +163,45 @@ const Page: React.FC = () => {
           </Card>
         </motion.div>
       )}
+      <Card className="max-w-4xl mx-auto bg-white shadow-xl">
+        <CardHeader>
+          <CardTitle className="text-3xl font-bold text-center text-gray-800">Video Reference</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-gray-600 mb-4 text-center">
+            This calculator is based on the concepts explained in the following YouTube video. 
+            Click the button below to watch the full explanation.
+          </p>
+          <Button
+            onClick={() => setShowVideo(!showVideo)}
+            className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-full transition-all duration-300 flex items-center justify-center"
+          >
+            <Youtube className="mr-2" />
+            {showVideo ? 'Hide Video' : 'Watch Video'}
+          </Button>
+          {showVideo && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mt-4"
+            >
+              <div className="relative" style={{ paddingBottom: '56.25%' }}>
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full"
+                  src="https://www.youtube.com/embed/9dqS2olRQfM?si=cEWSGWVBA1rPF4GE&amp;start=465"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </motion.div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   )
 }

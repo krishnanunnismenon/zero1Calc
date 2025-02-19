@@ -10,6 +10,8 @@ export default function Home() {
    <h1>This site is a zero1 By zerodha Excel sheet calculator combined</h1>
     <Button onClick={()=>router.push('/car-afford')}>Can You Afford A Car?</Button>
     <Button onClick={()=>router.push('/fire')}>Calculate Fire</Button>
+    <Button onClick={()=>router.push('/income-tax')}>Calculate Income Tax</Button>
+    <Button onClick={()=>router.push('/save-to-buy')}>How to save to Buy something?</Button>
     
     </>
   );
